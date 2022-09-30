@@ -17,7 +17,7 @@ class CreateGroupChatsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('group_id');
             $table->integer('user_id');
-            $table->string('message', '10000');
+            $table->string('message','10000');
             $table->timestamps();
         });
     }
