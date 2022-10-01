@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\DisplayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'],function(){
+
+    //ユーザートップページ
+    Route::resource('/', 'DisplayController');
+    
+    Route::resource('/user_mypage', 'DisplayController');
 });
