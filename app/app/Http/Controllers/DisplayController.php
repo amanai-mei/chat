@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class DisplayController extends Controller
 {
@@ -19,6 +20,7 @@ class DisplayController extends Controller
         return view('home',[
             'users' => $users,
         ]);
+        
     }
 
     /**
@@ -48,13 +50,12 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        // $user = new User;
-        // $users = $user->all()->toArray();
-        // return view('user_mypage',[
-        //     'users' => $users,
-        // ]);
+        $user_id = Auth::User()->find($id);
+        return view('user_mypage',[
+            'user_id' => $user_id,
+        ]);
     }
 
     /**
@@ -75,9 +76,15 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user, CreateData $request)
     {
-        //
+        $columns = ['name', 'email', 'password'];
+        foreach($columns as $column) {
+            $user->$column = $request->$column;
+        }
+        Auth::user()->user()->save($user);
+        
+        return view('u_mypage_update');
     }
 
     /**

@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chat</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="{{ url('/') }}">chat</a></li>
-            @foreach($users as $user)
-            <li><a href="">{{ $user['name'] }}</a></li>
-            @endforeach
-            <li><a href="">ログアウト</a></li>
-        </ul>
-    </nav>
+@extends('layouts.layout')
+@section('content')
     <h2>マイページ</h2>
 <!-- 画像を入れる -->
-<a href="">編集</a>
-    
-</body>
-</html>
+
+<form action="">
+    <label for='name'>名前</label>
+    <input type='text' class='' name='name' value="{{ $user_id['name'] }}" readonly>
+    <br>
+    <label for='email'>メールアドレス</label>
+    <input type='text' class='' name='email' value="{{ $user_id['email'] }}" readonly>
+    <br>
+    <label for='password'>パスワード</label>
+    <input type='password' class='' name='password' value="{{ $user_id['password'] }}" readonly>
+    <br>
+    <a href="">編集</a>
+</form>
+
+@endsection

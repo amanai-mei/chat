@@ -29,9 +29,8 @@
                         chat
                     </a>
                 </div>
-
                 @if(Auth::check())
-                    <span class="my-navbar-item">{{ Auth::user()->name }}</span>
+                    <span class="my-navbar-item"><a href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name }}</a></span>
                     /
                     <a href="#" id="logout" class="my-navbar-item">ログアウト</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

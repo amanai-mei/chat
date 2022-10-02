@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+x@extends('layouts.layout')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -7,7 +7,7 @@
                 <div class="card-header">{{ __('新規登録') }}</div>
                 <div class="card-body">
 
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register_complete') }}">
                         @csrf
 
                         <div class="form-group row">
