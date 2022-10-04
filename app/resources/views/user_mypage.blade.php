@@ -1,19 +1,64 @@
 @extends('layouts.layout')
 @section('content')
-    <h2>マイページ</h2>
-<!-- 画像を入れる -->
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">{{ __('マイページ') }}</div>
+                <div class="card-body">
 
-<form action="">
-    <label for='name'>名前</label>
-    <input type='text' class='' name='name' value="{{ $user_id['name'] }}" readonly>
-    <br>
-    <label for='email'>メールアドレス</label>
-    <input type='text' class='' name='email' value="{{ $user_id['email'] }}" readonly>
-    <br>
-    <label for='password'>パスワード</label>
-    <input type='password' class='' name='password' value="{{ $user_id['password'] }}" readonly>
-    <br>
-    <a href="">編集</a>
-</form>
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('名前') }}</label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user_id['name'] }}">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user_id['email'] }}">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('パスワード') }}</label>
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $user_id['password'] }}">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <br>
+                        <div class="text-center">
+                        <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+
+
+

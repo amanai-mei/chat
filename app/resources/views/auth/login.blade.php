@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-<h2>チャット</h2>
+<br>
+<br>
+<h2 class='text-center'>チャット</h2>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col col-md-offset-3 col-md-6">
@@ -29,20 +31,23 @@
           </div>
 
             @if (Route::has('password.request'))
-              <a class="btn btn-link" href="{{ route('password.request') }}">
+              <a class="btn btn-link d-block" href="{{ route('password.request') }}">
                 {{ __('パスワードを忘れた方はこちら') }}
               </a>
             @endif
         
-            <div class="text-right">
+            <div class="text-right text-center">
               <button type="submit" class="btn btn-primary">ログイン</button>
             </div>
-            
             <br>
-            <h3>登録はこちら</h3>
-            <a class="nav-link" href="{{ route('register') }}">{{ __('アカデミア新規登録') }}</a>
-            <br>
-            <a class="nav-link" href="{{ route('register') }}">{{ __('管理者新規登録') }}</a>
+            <h5 class="text-center">登録はこちら</h5>
+            <div class="text-center">
+              <a class="btn btn-outline-primary mx-auto" href="{{ route('register') }}">{{ __('アカデミア新規登録') }}</a>
+              <br>
+              <br>
+              <a class="btn btn-outline-primary mx-auto" href="{{ route('register') }}">{{ __('管理者新規登録') }}</a>
+              <br>
+            </div>
         </form>
 
         <!-- </div> -->

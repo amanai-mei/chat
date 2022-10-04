@@ -20,9 +20,5 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'],function(){
 
-    // Route::redirect('/register/confirm', '/register');
-    // Route::post('/register/confirm', [App\Http\Controllers\Auth\RegisterController::class,'confirm'])->name('register_confirm');
-    // Route::post('/register/complete', [App\Http\Controllers\Auth\RegisterController::class,'register'])->name('register_complete');
-
     Route::resource('display', 'DisplayController');
 });

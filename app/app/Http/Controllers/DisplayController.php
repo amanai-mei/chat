@@ -50,12 +50,13 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($id)
     {
         $user_id = Auth::User()->find($id);
         return view('user_mypage',[
             'user_id' => $user_id,
         ]);
+
     }
 
     /**
@@ -64,9 +65,15 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $user_id = Auth::User()->find($id);
+        return view('u_mypage_update',[
+            'user_id' => $user_id,
+        ]);
+
+        
+
     }
 
     /**
@@ -76,15 +83,30 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, CreateData $request)
-    {
-        $columns = ['name', 'email', 'password'];
-        foreach($columns as $column) {
-            $user->$column = $request->$column;
-        }
+    public function update(int $id, Request $request){
+
+        $user = new User;
+        $user_id = $user->find($id);
+
+        $user_id->name = $request->name;
+        $user_id->email = $request->email;
+        $user_id->password = $request->password;
         Auth::user()->user()->save($user);
-        
-        return view('u_mypage_update');
+
+        return redirect('/');
+
+        // Auth::user()->spending()->save($spending);
+        // return redirect('/display');
+
+    //     $columns = ['name', 'email', 'password'];
+    //     foreach($columns as $column) {
+    //         $user->$column = $request->$column;
+    //     }
+    //     Auth::user()->user()->save($user);
+
+    //    return redirect('/');
+
+      
     }
 
     /**
