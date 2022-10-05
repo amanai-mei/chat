@@ -41,7 +41,21 @@ class DisplayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 画像が保存されている場所：app/public/avatar
+        // 画像を取得する場所：public/storage/avatar
+        $user = new User;
+
+        // name属性が'image'のinputタグをファイル形式に、画像をpublic/avatarに保存
+        $image_path = $request->file('image')->store('public/avatar/');
+
+        // 上記処理にて保存した画像に名前を付け、userテーブルのimageカラムに、格納
+        $user->image = basename($image_path);
+
+        $user->save();
+
+        // return redirect()->route('任意のビュー');
+        return view('user_mypage',$user);
+
     }
 
     /**
@@ -83,6 +97,8 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //マイページの編集
     public function update(int $id, Request $request){
 
         $user = new User;
@@ -90,22 +106,9 @@ class DisplayController extends Controller
 
         $user_id->name = $request->name;
         $user_id->email = $request->email;
-        $user_id->password = $request->password;
-        Auth::user()->user()->save($user);
-
-        return redirect('/');
-
-        // Auth::user()->spending()->save($spending);
-        // return redirect('/display');
-
-    //     $columns = ['name', 'email', 'password'];
-    //     foreach($columns as $column) {
-    //         $user->$column = $request->$column;
-    //     }
-    //     Auth::user()->user()->save($user);
-
-    //    return redirect('/');
-
+        $user_id->save();
+       
+        return redirect(route('display.show',$id));
       
     }
 

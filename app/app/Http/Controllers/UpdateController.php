@@ -13,7 +13,6 @@ class UpdateController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
