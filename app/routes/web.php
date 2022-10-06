@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\DisplayController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,4 +22,5 @@ Auth::routes();
 Route::group(['middleware' => 'auth'],function(){
 
     Route::resource('display', 'DisplayController');
+
 });

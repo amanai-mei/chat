@@ -8,16 +8,15 @@
             <div class="card">
                 <div class="card-header text-center">{{ __('マイページ編集') }}</div>
                 <div class="card-body">
-
-                    
-                    @method('patch')
+                    <form action="">
+                        @method('patch')
                         <!-- 画像を入れる -->
                         
-                        <form action="" method="post" enctype="mulitipart/form-data">
+                        <!-- <form action="" method="post" enctype="mulitipart/form-data">
                             @csrf
                             <input type="file" name="image">
-                            <button>アップロード</button>
-                        </form>
+                            <button>アップロード</button> -->
+                        <!-- </form> -->
                         <!-- <a href="">削除</a>
                         <a href="">追加</a> -->
 
@@ -46,11 +45,10 @@
                         </div>
                         <br>
                         <div class="text-center">
-                            <button class="btn btn-outline-primary mx-auto">更新</button>
+                            <button class="btn btn-outline-primary mx-auto">保存</button>
                             <!-- <a class="btn btn-outline-primary mx-auto" href="{{ route('display.update', ['display' => Auth::user()->id]) }}">保存</a> -->
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

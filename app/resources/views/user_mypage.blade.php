@@ -10,7 +10,6 @@
 
                     <form method="POST" action="{{ route('register') }}">
 
-                    
                         @csrf
 
                         <div class="form-group row">

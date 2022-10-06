@@ -38,9 +38,9 @@
                     @if(Auth::check())
                     <span class="my-navbar-item"><a href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name}}</a></span>
                     /
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="">
+                    <a href="#" id="logout" class="my-navbar-item">ログアウト</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
-                        <a href="#" id="logout" class="my-navbar-item">ログアウト</a>
                     </form>
                     <script>
                         document.getElementById('logout').addEventListener('click', function(event) {

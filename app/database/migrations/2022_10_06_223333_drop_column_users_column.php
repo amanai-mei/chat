@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageUsers extends Migration
+class DropColumnUsersColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddImageUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('image');
+            $table->dropColumn('image');
+            $table->dropColumn('admin_code');
         });
     }
 
@@ -26,7 +27,8 @@ class AddImageUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('image');
+            $table->boolean('image')->default(false);
+            $table->boolean('admin_code')->default(false);
         });
     }
 }
