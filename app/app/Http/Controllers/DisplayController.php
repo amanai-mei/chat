@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Image;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class DisplayController extends Controller
 {
@@ -97,14 +99,28 @@ class DisplayController extends Controller
 
      //マイページの編集
     public function update(int $id, Request $request){
-        //    var_dump($request); 
-        $user = new User;
-        $user_id = $user->find($id);
-        
-        $user_id->name = $request->name;
-        $user_id->email = $request->email;
-        $user_id->save();
-        return redirect(route('display.show',$id));      
+
+        try {
+            DB::beginTransaction();
+            $user = new User;
+            $user_id = $user->findOrFail($id);
+            
+            $user_id->name = $request->name;
+            $user_id->email = $request->email;
+            $user_id->save();
+            $image = new Image;
+            $imageData = $image->where('user_id',$id)->firstOrFail();
+            $imageData->image = $request->image;
+            $imageData->save();
+            DB::commit();
+            return redirect(route('display.show',$id))
+            ->with('success', '更新しました');    
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect(route('display.show',$id))
+            ->with('success', '失敗しました');    
+        }
+             
     }
 
     /**

@@ -8,18 +8,29 @@
             <div class="card">
                 <div class="card-header text-center">{{ __('マイページ編集') }}</div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="mulitipart/form-data">
                         @method('patch')
+                        @csrf
                         <!-- 画像を入れる -->
                         
-                        <!-- <form action="" method="post" enctype="mulitipart/form-data">
-                            @csrf
+                        
                             <input type="file" name="image">
-                            <button>アップロード</button> -->
-                        <!-- </form> -->
-                        <!-- <a href="">削除</a>
-                        <a href="">追加</a> -->
+                            <button>アップロード</button>
+                        
 
+                        
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('画像') }}</label>
+                            <div class="col-md-6">
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ $user_id['image'] }}">
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <br>
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('名前') }}</label>
                             <div class="col-md-6">

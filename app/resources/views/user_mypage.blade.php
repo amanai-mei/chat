@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 @section('content')
+@if(Session::has('success'))
+	<div class="bg-info">
+		<p>{{ Session::get('success') }}</p>
+	</div>
+@endif
+
 <br>
 <div class="container">
     <div class="row justify-content-center">
