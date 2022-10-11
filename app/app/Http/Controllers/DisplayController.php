@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Image;
+use App\Group;
+
 use Illuminate\Support\Facades\Auth;
-use DB;
+use ILLuminate\support\Facades\DB;
 
 class DisplayController extends Controller
 {
@@ -15,14 +17,31 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() //一覧表示(TOPページ)
     {
+        // userの表示（ヘッダー・アカデミア生）
         $user = new User;
         $users = $user->all()->toArray();
-        return view('home',[
-            'users' => $users,
-        ]);
+        $role = Auth::user()->toArray();
+
+        // グループの表示(カリキュラム・入社日)
+        $group = new Group;
+        $groups = $group->all()->toArray();
         
+        // ログイン後のページ遷移
+        if($role['role'] == 0){
+            // ユーザートップページ表示
+            return view('user_home',[
+                'users' => $users,
+                'groups'  => $groups,
+                ]);
+            }else{
+                // 管理者トップページ表示
+                return view('admin_home',[
+                    'users' => $users,
+                    'groups'  => $groups,
+                ]);
+            }
     }
 
     /**
@@ -30,7 +49,7 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //新規作成画面の表示
     {
         //
     }
@@ -41,33 +60,38 @@ class DisplayController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // 新規作成画面のデータ保存
     {
-        // // 画像が保存されている場所：app/public/avatar
-        // // 画像を取得する場所：public/storage/avatar
-        // $user = new User;
+        // 検索フォームで入力された値を取得する
+        $search = $request->input('search');
 
-        // // name属性が'image'のinputタグをファイル形式に、画像をpublic/avatarに保存
-        // $image_path = $request->file('image')->store('public/avatar/');
+        // クエリビルダ
+        $query = User::query(); 
+        
+        if ($search) {
 
-        // // 上記処理にて保存した画像に名前を付け、userテーブルのimageカラムに、格納
-        // $user->image = basename($image_path);
-
-        // $user->save();
-
-        // // return redirect()->route('任意のビュー');
-        // return view('user_mypage',$user);
-
+            // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
+            foreach($wordArraySearched as $value) {
+                $query->where('name', 'like', '%'.$value.'%');
+            }
+        }
+        return view('user_home')
+        ->with([
+            'users' => $users,
+            'search' => $search,
+        ]);
     }
-
+    
+        
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // 作成データの個別表示
     {
+        // マイページの表示
         $user_id = Auth::User()->find($id);
         return view('user_mypage',[
             'user_id' => $user_id,
@@ -81,8 +105,9 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $id)
+    public function edit(int $id) // 作成データの編集用フォームの表示
     {
+        // マイページ編集画面の表示
         $user_id = Auth::User()->find($id);
         return view('u_mypage_update',[
             'user_id' => $user_id,
@@ -97,8 +122,8 @@ class DisplayController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     //マイページの編集
-    public function update(int $id, Request $request){
+     //マイページの編集・登録
+    public function update(int $id, Request $request){ // 編集データの保存
 
         try {
             DB::beginTransaction();
@@ -108,6 +133,7 @@ class DisplayController extends Controller
             $user_id->name = $request->name;
             $user_id->email = $request->email;
             $user_id->save();
+            return redirect(route('display.show',$id));//画像登録時削除
             $image = new Image;
             $imageData = $image->where('user_id',$id)->firstOrFail();
             $imageData->image = $request->image;
@@ -129,7 +155,7 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) // データの削除
     {
         //
     }

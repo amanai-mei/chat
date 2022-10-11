@@ -51,7 +51,7 @@ class RegisterController extends Controller
      // バリデーション時にセッションデータを渡す
     protected function validator(array $data)
     {
-        // $data = session()->all();
+        $data = session()->all();
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -70,27 +70,31 @@ class RegisterController extends Controller
      // 登録時にセッションデータを渡す
     protected function create(array $data)
     {
-        // $data = session()->all();
+        $data = session()->all();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             // 'admin_code' => $data['admin_code'],
         ]);
+        
     }
 
+
+
     // バリデーション後リクエストデータをセッションに入れる→確認画面へ
-    protected function confirm()
-{
-    // $request = request();
-    // $request->validate([ 
-    //     'name' => ['required', 'string', 'max:255'],
-    //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //     'password' => ['required', 'string', 'min:8', 'confirmed'],
-    // ]);
-    // foreach($request->all() as $key => $val){
-    //     $request->session()->put($key, $request->$key);
-    // }
-    // return view('auth.register_confirm');
-}
+//     public function confirm()
+//     {
+//         $request = request();
+//         $request->validate([ 
+//             'name' => ['required', 'string', 'max:255'],
+//             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+//             'password' => ['required', 'string', 'min:8', 'confirmed'],
+//         ]);
+//         foreach($request->all() as $key => $val){
+//             $request->session()->put($key, $request->$key);
+//         }
+//         return view('auth.register_confirm');
+// }
+
 }

@@ -43,6 +43,17 @@ class GroupsTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'group_name' => '2022年10月',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'group_name' => '2022年11月',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
         ];
         foreach($params as $param){
             DB::table('groups')->insert($param);

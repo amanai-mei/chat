@@ -8,7 +8,7 @@
                     新規登録') }}</div>
                 <div class="card-body">
 
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ url('register/confirm') }}">
                         @csrf
 
                         <div class="form-group row">
