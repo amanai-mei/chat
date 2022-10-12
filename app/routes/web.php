@@ -2,6 +2,7 @@
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\ChatyController;
 use App\Http\Controllers\UserChatyController;
+use App\Http\Controllers\Auth\RegisterController;
 
 
 /*
@@ -17,18 +18,22 @@ use App\Http\Controllers\UserChatyController;
 
 Auth::routes();
 
+// ログイン画面表示
 Route::get('/', function () {
     return view('auth.login');
 });
 
+// 管理者登録画面表示
+Route::get('/register_admin', function () {
+    return view('auth.admin_register');
+});
+
 Route::group(['middleware' => 'auth'],function(){
-    
-    // Route::redirect('/register/confirm', '/register');    //追記
-    // Route::post('/register/confirm', [App\Http\Controllers\Auth\RegisterController::class,'confirm']);    //追記
-    // Route::post('/register/complete', [App\Http\Controllers\Auth\RegisterController::class,'register']);  //追記
     
     Route::resource('display', 'DisplayController');
     Route::resource('chat', 'ChatController');
     Route::resource('userchat', 'UserChatController');
+    Route::get('/user/search', 'DisplayController@searchUser')->name('searchUser');
+
     
 });

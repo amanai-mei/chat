@@ -6,7 +6,7 @@
 <h3 class="text-center">アカデミアトップページ</h3>
 
 <div class="search text-center">
-<form method="GET" action="{{ route('display.store') }}">
+<form method="GET" action="{{ route('searchUser') }}">
     @csrf
     <select name="medium" data-toggle="select">
         <option value=""></option>
@@ -17,21 +17,8 @@
         <button type="submit">検索</button>
 </form>
 
-
-@foreach($users as $user)
-    <a href="{{ route('display.store', ['user_id' => $user['id']]) }}">
-        {{ $user['name'] }}
-    </a>
-@endforeach
-
-
 <div>
-<!-- // 下記のようにページネーターを記述するとページネートで次ページに遷移しても、検索結果を保持する -->
     
-
-
-    <br>
-    <br>
     <div class="d-flex justify-content-evenly">
         <div>
             <h3>アカデミア生</h3>
