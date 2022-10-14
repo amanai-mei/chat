@@ -1,3 +1,4 @@
+<!-- パスワードを忘れた方はこちらをクリックするとここに遷移 -->
 @extends('layouts.layout')
 
 @section('content')

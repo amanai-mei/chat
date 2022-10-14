@@ -11,6 +11,7 @@
                     <form action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="mulitipart/form-data">
                         @method('patch')
                         @csrf
+                        
                         <!-- 画像を入れる -->
                         
                             <input type="file" name="image">

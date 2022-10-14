@@ -8,7 +8,7 @@ use App\Image;
 use App\Group;
 
 use Illuminate\Support\Facades\Auth;
-use ILLuminate\support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class DisplayController extends Controller
 {
@@ -106,28 +106,37 @@ class DisplayController extends Controller
      */
 
      //マイページの編集・登録
-    public function update(int $id, Request $request){ // 編集データの保存
+    public function update(int $id, Request $request)
+    { // 編集データの保存
 
         try {
-            DB::beginTransaction();
+            DB::beginTransaction(); //トランザクションの開始
             $user = new User;
+            // findOrFail()：エラー（404HTTPレスポンス）を返す。例外処理。
             $user_id = $user->findOrFail($id);
             
+            // マイページの名前・メールアドレスの編集
             $user_id->name = $request->name;
             $user_id->email = $request->email;
             $user_id->save();
-            return redirect(route('display.show',$id));//画像登録時削除
-            $image = new Image;
-            $imageData = $image->where('user_id',$id)->firstOrFail();
-            $imageData->image = $request->image;
-            $imageData->save();
-            DB::commit();
-            return redirect(route('display.show',$id))
-            ->with('success', '更新しました');    
+
+            // 画像
+            $imageData = Image::updateOrCreate(
+                ['user_id'=>$id],
+                ['image'=>$request->image,'user_id'=>$id],
+            );
+            DB::commit(); // DBに反映
+            return view('user_mypage',[
+                'user_id' => $user_id,
+                'image' => $imageData->image,
+            ])->with('success', '更新しました'); 
+
         }catch(Exception $e){
-            DB::rollback();
-            return redirect(route('display.show',$id))
-            ->with('success', '失敗しました');    
+            DB::rollback(); // トランザクションの開始まで戻る
+            return view('user_mypage',[
+                'user_id' => $user_id,
+                'image' => $imageData->image,
+            ])->with('success', '失敗しました');    
         }
              
     }
