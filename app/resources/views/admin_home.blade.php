@@ -5,38 +5,30 @@
 <br>
 <h3 class="text-center">管理者トップページ</h3>
 
-<div class="search">
-        <form action="" method="GET">
-            @csrf
-            <br>
-            <div class="form-group text-center">
-                <select name="medium" data-toggle="select">
-                    <option value=""></option>
-                    <option value="">名前</option>
-                    <option value="">グループ</option>
-                </select>
-                <input type="text" name="keyword" value="" placeholder="入力">
-                <button>検索</button>
-            </div>
-
-
-    <br>
-    <br>
+<div class="search text-center">
+<form class="mb-5" method="GET" action="{{ route('searchUser') }}">
+    @csrf
+    <input type="search" placeholder="入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
+        <button type="submit">検索</button>
+</form>
+<div>
     <div class="d-flex justify-content-evenly">
         <div>
             <h3>アカデミア生</h3>
             @foreach($users as $user)
+            @if($user['role'] == 0 && $user['del_flg'] == 0)
             <ul>
-                <li>
-                    <a href="{{ route('chat.index') }}">{{ $user['name'] }}</a>
+                <li style="list-style:none;">
+                    <a style="text-decoration:none;" href="{{ route('admin.show',['admin' => $user['id']]) }}">{{ $user['name'] }}</a>
+
                 </li>
             </ul>
+            @endif
             @endforeach
 
         </div>
         <br>
         <div>
-            <h3 class="text-center">グループ</h3>
             <div class="d-flex">
                 <div>
                     <h4>カリキュラム</h4>
@@ -45,8 +37,8 @@
                     @break
                     @endif
                             <ul>
-                                <li>
-                                    <a href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
+                                <li style="list-style:none;">
+                                    <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
                                 </li>
                             </ul>
                     @endforeach
@@ -55,16 +47,15 @@
                 <div>
                     <h4>入社日</h4>
                     @foreach($groups as $group)
-                    @if($group['id'] > 14)
-                    @continue;
-                    @else
-                    @endif
+                    @if($group['id'] > 12)
                             <ul>
-                                <li>
-                                    <a href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
+                                <li style="list-style:none;">
+                                    <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $groups = date('Y年m月', strtotime($group['group_name'])) }}</a>
                                 </li>
                             </ul>
+                            @endif
                     @endforeach
+                    <a href="{{ route('admin.create') }}">登録する</a>
                 </div>
             </div>
         </div>

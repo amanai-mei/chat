@@ -74,11 +74,21 @@ class DisplayController extends Controller
      */
     public function show($id) // 作成データの個別表示
     {
-        // マイページの表示
+        // マイページの表示(名前・メールアドレスの表示)
         $user_id = Auth::User()->find($id);
+
+        // 画像の表示
+        $user = Auth::User()->find($id);
+        $image = new Image;
+        $images = DB::table('images')->get();
         return view('user_mypage',[
             'user_id' => $user_id,
+            'image' => $image->image,
+            'images' => $images,
+            'user' => $user,
         ]);
+
+        //画像登録している人の表示
 
     }
 
@@ -120,11 +130,17 @@ class DisplayController extends Controller
             $user_id->email = $request->email;
             $user_id->save();
 
-            // 画像
+            // 画像の登録
+            // storage/app直下の任意のディレクトリにユニークなファイル名で保存
+            // name=image, storage/public/image
+            $image = $request->file('image')->store('public/image');
+            // $imageに保存されているファイル名からpublic/image/という文字列を''（空文字）に置き換える(これで画面表示ができる様になる)
+            $image = str_replace('public/image/', '', $image);
             $imageData = Image::updateOrCreate(
-                ['user_id'=>$id],
-                ['image'=>$request->image,'user_id'=>$id],
+                ['user_id'=>$id], // where
+                ['image'=>$image,'user_id'=>$id],
             );
+       
             DB::commit(); // DBに反映
             return view('user_mypage',[
                 'user_id' => $user_id,
@@ -138,7 +154,6 @@ class DisplayController extends Controller
                 'image' => $imageData->image,
             ])->with('success', '失敗しました');    
         }
-             
     }
 
     /**
@@ -180,7 +195,6 @@ class DisplayController extends Controller
             // 上記で取得した$queryをページネートにし、変数$usersに代入
             $users = $query->paginate(20);
         }
-        var_dump($users['total']);
         return view('user_search')
         ->with([
             'users' => $users,

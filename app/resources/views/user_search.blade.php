@@ -3,7 +3,7 @@
 @section('content')
 <br>
 <br>
-<h3 class="text-center">アカデミアトップページ</h3>
+<h3 class="text-center">検索結果</h3>
 
 <div class="search text-center">
 <form method="GET" action="{{ route('searchUser') }}">

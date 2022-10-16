@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User_chat;
 
 class ChatController extends Controller
 {
@@ -11,9 +12,10 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()//一覧表示(TOPページ)
     {
-        return view('chat');
+        // $messages = Message::get();
+        // return view('academia_chat', ['message' => $message]);
     }
 
     /**
@@ -21,7 +23,7 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create()//新規作成画面の表示
     {
         //
     }
@@ -32,9 +34,8 @@ class ChatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)// 新規作成画面のデータ保存
     {
-        //
     }
 
     /**
@@ -43,7 +44,7 @@ class ChatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id)// 作成データの個別表示
     {
         //
     }
@@ -54,7 +55,7 @@ class ChatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id)// 作成データの編集用フォームの表示
     {
         //
     }

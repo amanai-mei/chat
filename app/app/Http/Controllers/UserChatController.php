@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User_chat;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserChatController extends Controller
 {
@@ -16,8 +17,15 @@ class UserChatController extends Controller
      */
     public function index()
     {
-        // $messages = Message::get();
-        // return view('chat', ['messages' => $messages]);
+         // チャットのメッセージ表示
+        $u = new User;
+        $users = $u
+            ->join('user_chats', 'users.id', 'user_id')
+            ->get();
+        return view('academia_chat', [
+            // 'messages' => $messages,
+            'users' => $users,
+                ]);
     }
 
     /**
@@ -38,7 +46,23 @@ class UserChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // メッセージの登録
+        $user = Auth::user();
+        // $message = new User_chat;
+        $u = new User;
+        $a = $u
+            ->join('user_chats', 'users.id', 'user_id')
+            ->get();
+
+        $message = $request->input('message');
+
+        User_chat::create([
+        'user_id' => $user->id,
+        'name' => $user->name,
+        // メッセージ保存をさせる
+        'message' => $user,
+        ]);
+        return redirect('userchat');
     }
 
     /**

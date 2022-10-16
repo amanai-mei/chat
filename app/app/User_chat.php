@@ -13,4 +13,9 @@ class User_chat extends Model
     protected $guarded = [
         'create_at', 'update_at'
     ];
+
+    public function user()
+{
+    return $this->belongsTo('App\User');
+}
 }

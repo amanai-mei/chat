@@ -41,4 +41,8 @@ class User extends Authenticatable
 {
     return $this->hasOne('App\Image');
 }
+    public function user_chat()
+    {
+        return $this->hasMany('App\User_chat');
+    }
 }

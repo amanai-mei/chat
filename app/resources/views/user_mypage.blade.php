@@ -5,54 +5,49 @@
 		<p>{{ Session::get('success') }}</p>
 	</div>
 @endif
-
-<br>
-<div class="container">
+<div class="container p-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
-                <div class="card-header text-center">{{ __('マイページ') }}</div>
-                <div class="card-body">
-
-                    <form method="POST" action="{{ route('register') }}">
-
-                        @csrf
-                        <img src="{{asset('storage/'.$image->images)}}" alt="">
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('名前') }}</label>
-                            <div class="col-md-6">
-
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user_id['name'] }}" disabled="disabled">
-                                <!-- @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror -->
+                <!-- <div class="card-header text-center">{{ __('マイページ') }}</div> -->
+                    <div class="card-body">
+                        <form class="m-5" method="POST" action="{{ route('register') }}" enctype='multipart/form-data'>
+                            <h4 class="text-center p-4">マイページ</h4>
+                            @csrf
+                            <!-- 画像貼り付け -->
+                            @foreach($images as $image)
+                                @if($image->user_id == $user->id)
+                                    <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.(print_r($image, true))) }}">
+                                @endif
+                            @endforeach
+                            <div class="form-group row">
+                                <label for="name" class="text-left m-1">{{ __('名前') }}</label>
+                                <div class="">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user_id['name'] }}" disabled="disabled">
+                                        <!-- @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror -->
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user_id['email'] }}" disabled="disabled" >
-                                <!-- @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror -->
+                            <div class="form-group row">
+                                <label for="email" class="text-left m-1">{{ __('メールアドレス') }}</label>
+                                <div class="">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user_id['email'] }}" disabled="disabled" >
+                                        <!-- @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror -->
+                                </div>
                             </div>
-                        </div>
-                        
-                        
-                        </div>
-                        
-                        <div class="text-center">
-                        <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
+                            <div class="text-center pb-3 pt-3">
+                                <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
+                            </div>
+                        </form>
                     </div>
-                    </form>
-
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

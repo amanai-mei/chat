@@ -2,25 +2,26 @@
 @extends('layouts.layout')
 @section('content')
 <br>
-<div class="container">
+<div class="container p-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
-                <div class="card-header text-center">{{ __('マイページ編集') }}</div>
+                <!-- <div class="card-header text-center">{{ __('マイページ編集') }}</div> -->
                 <div class="card-body">
-                    <form action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="mulitipart/form-data">
+                    <form action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+                    <h4 class="text-center p-4">マイページ編集</h4>
                         @method('patch')
                         @csrf
                         
                         <!-- 画像を入れる -->
                         
-                            <input type="file" name="image">
-                            <button>アップロード</button>
-                        <br>
-                        <br>
+
+                            <input class="" type="file" name="image">
+                            <input class="mb-3"type="submit" value="アップロード">
+                            <!-- <button>アップロード</button> -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('名前') }}</label>
-                            <div class="col-md-6">
+                            <label for="name" class="text-left m-1">{{ __('名前') }}</label>
+                            <div class="">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user_id['name'] }}">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,10 +30,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <br>
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
-                            <div class="col-md-6">
+                            <label for="email" class="text-left m-1">{{ __('メールアドレス') }}</label>
+                            <div class="">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user_id['email'] }}">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -41,13 +41,12 @@
                                 @enderror
                             </div>
                         </div>
-                        <br>
-                        <div class="text-center">
+                        <div class="text-center pb-3 pt-3">
                             <button class="btn btn-outline-primary mx-auto">保存</button>
                             <!-- <a class="btn btn-outline-primary mx-auto" href="{{ route('display.update', ['display' => Auth::user()->id]) }}">保存</a> -->
                         </div>
                     </form>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
