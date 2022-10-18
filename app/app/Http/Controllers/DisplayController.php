@@ -80,16 +80,13 @@ class DisplayController extends Controller
         // 画像の表示
         $user = Auth::User()->find($id);
         $image = new Image;
-        $images = DB::table('images')->get();
+        $i = $image
+        ->where('user_id',$id)->first(['image']);
         return view('user_mypage',[
             'user_id' => $user_id,
-            'image' => $image->image,
-            'images' => $images,
+            'image' => $i->image,
             'user' => $user,
         ]);
-
-        //画像登録している人の表示
-
     }
 
     /**
@@ -142,17 +139,21 @@ class DisplayController extends Controller
             );
        
             DB::commit(); // DBに反映
+            session()->flash('flash_message', '更新しました');
             return view('user_mypage',[
                 'user_id' => $user_id,
                 'image' => $imageData->image,
-            ])->with('success', '更新しました'); 
+            ]);
+            // ->with('success', '更新しました'); 
 
         }catch(Exception $e){
             DB::rollback(); // トランザクションの開始まで戻る
+            session()->flash('flash_message', '失敗しました');
             return view('user_mypage',[
                 'user_id' => $user_id,
                 'image' => $imageData->image,
-            ])->with('success', '失敗しました');    
+            ]);
+            // ->with('success', '失敗しました');    
         }
     }
 

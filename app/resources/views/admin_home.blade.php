@@ -1,6 +1,16 @@
 @extends('layouts.layout')
 
 @section('content')
+<!-- フラッシュメッセージ -->
+@if (session('flash_message'))
+<div class="alert alert-primary m-2 text-center">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
+        <main class="mt-4">
+            @yield('content')
+        </main>
 <br>
 <br>
 <h3 class="text-center">管理者トップページ</h3>
@@ -20,18 +30,13 @@
             <ul>
                 <li style="list-style:none;">
                     <a style="text-decoration:none;" href="{{ route('admin.show',['admin' => $user['id']]) }}">{{ $user['name'] }}</a>
-
                 </li>
             </ul>
             @endif
             @endforeach
-
         </div>
-        <br>
         <div>
-            <div class="d-flex">
-                <div>
-                    <h4>カリキュラム</h4>
+                 <h4>カリキュラム</h4>
                     @foreach($groups as $group)
                     @if($group['id'] == 13)
                     @break
@@ -42,7 +47,6 @@
                                 </li>
                             </ul>
                     @endforeach
-
                 </div>
                 <div>
                     <h4>入社日</h4>
@@ -57,7 +61,5 @@
                     @endforeach
                     <a href="{{ route('admin.create') }}">登録する</a>
                 </div>
-            </div>
-        </div>
     </div>
     @endsection

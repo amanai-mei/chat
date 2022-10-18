@@ -79,6 +79,7 @@ class RegisterController extends Controller
     // 登録後ログイン画面に戻る
     public function redirectPath()
     {
+        session()->flash('flash_message', '登録が完了しました');
         return '/';
     }
     

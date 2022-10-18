@@ -17,15 +17,7 @@ class UserChatController extends Controller
      */
     public function index()
     {
-         // チャットのメッセージ表示
-        $u = new User;
-        $users = $u
-            ->join('user_chats', 'users.id', 'user_id')
-            ->get();
-        return view('academia_chat', [
-            // 'messages' => $messages,
-            'users' => $users,
-                ]);
+        //
     }
 
     /**
@@ -47,22 +39,19 @@ class UserChatController extends Controller
     public function store(Request $request)
     {
         // メッセージの登録
-        $user = Auth::user();
-        // $message = new User_chat;
         $u = new User;
-        $a = $u
-            ->join('user_chats', 'users.id', 'user_id')
-            ->get();
-
+        $users = $u->all()->toArray();
+        $user = Auth::user();
         $message = $request->input('message');
+        $to_id = $request->input('to_id');
 
         User_chat::create([
         'user_id' => $user->id,
         'name' => $user->name,
-        // メッセージ保存をさせる
-        'message' => $user,
+        'message' => $message,
+        'to_id' => $to_id,
         ]);
-        return redirect('userchat');
+        return redirect()->route('userchat.show',['userchat' => $to_id]);
     }
 
     /**
@@ -73,7 +62,18 @@ class UserChatController extends Controller
      */
     public function show($id)
     {
-        //
+         // チャットのメッセージ表示
+         $user_id = Auth::User($id);//ログインしたユーザー
+         // $id->リンクタグをクリックしたユーザー
+         $u = new User;
+         $users = $u
+             ->join('user_chats', 'users.id', 'user_id')
+             ->get();
+         return view('academia_chat', [
+             'users' => $users,
+             'user_id' => $user_id,
+             'id' => $id
+                 ]);
     }
 
     /**
@@ -84,7 +84,17 @@ class UserChatController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 削除画面の表示
+        //$id->messageのid
+        $user_chats = new User_chat;
+        // $user_id = Auth::User()->find($id);
+        $user_chat = $user_chats
+        ->where('id',$id)->first(['message']);
+
+        return view('chat_edit',[
+                'user_chat' => $user_chat,
+                'id' => $id,
+            ]);
     }
 
     /**
@@ -96,7 +106,13 @@ class UserChatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $users = $u
+        //      ->join('user_chats', 'users.id', 'user_id')
+        //      ->get();
+        //  return view('chat_edit', [
+        //      'users' => $users,
+        //          ]);
+        
     }
 
     /**
@@ -107,6 +123,8 @@ class UserChatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_chats = new User_chat;
+        $user_id = Auth::User()->find($id);
+        dd($user_id);
     }
 }

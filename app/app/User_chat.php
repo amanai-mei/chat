@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class User_chat extends Model
 {
     protected $fillable = [
-        'user_id', 'message'
+        'user_id', 'message', 'to_id',
     ];
 
     protected $guarded = [

@@ -12,13 +12,9 @@
                     <h4 class="text-center p-4">マイページ編集</h4>
                         @method('patch')
                         @csrf
-                        
-                        <!-- 画像を入れる -->
-                        
 
                             <input class="" type="file" name="image">
-                            <input class="mb-3"type="submit" value="アップロード">
-                            <!-- <button>アップロード</button> -->
+
                         <div class="form-group row">
                             <label for="name" class="text-left m-1">{{ __('名前') }}</label>
                             <div class="">

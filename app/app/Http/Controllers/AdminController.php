@@ -54,6 +54,7 @@ class adminController extends Controller
         $group->group_name = $request->group_name;
         $group->save();
 
+        session()->flash('flash_message', '入社月の登録が完了しました');
         return redirect('display')->with([
             'group' => $group,
             'users' => $users,
@@ -107,14 +108,12 @@ class adminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $instance = new User;
-        // $record = $instance->find($id);
-        // dd($record);
-
+        // 論理削除
         $user_id = Auth::User()->find($id);
         $user_id['del_flg'] = 1;
         $user_id->save();
 
+        session()->flash('flash_message', 'ユーザーを削除しました');
         return redirect('display');
 
 

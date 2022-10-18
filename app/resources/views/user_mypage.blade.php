@@ -1,10 +1,15 @@
 @extends('layouts.layout')
 @section('content')
-@if(Session::has('success'))
-	<div class="bg-info">
-		<p>{{ Session::get('success') }}</p>
-	</div>
-@endif
+<!-- フラッシュメッセージ -->
+        @if (session('flash_message'))
+            <div class="flash_message alert alert-primary m-2 text-center">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
+        <main class="mt-4">
+            @yield('content')
+        </main>
 <div class="container p-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -15,11 +20,7 @@
                             <h4 class="text-center p-4">マイページ</h4>
                             @csrf
                             <!-- 画像貼り付け -->
-                            @foreach($images as $image)
-                                @if($image->user_id == $user->id)
-                                    <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.(print_r($image, true))) }}">
-                                @endif
-                            @endforeach
+                                    <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
                             <div class="form-group row">
                                 <label for="name" class="text-left m-1">{{ __('名前') }}</label>
                                 <div class="">

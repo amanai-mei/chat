@@ -19,24 +19,21 @@
             @if($user['role'] == 0 && $user['id'] != Auth::user()->id)
             <ul>
                 <li style="list-style:none;">
-                    <a style="text-decoration:none;" href="{{ route('userchat.index') }}">{{ $user['name'] }}</a>
+                    <a style="text-decoration:none;" href="{{ route('userchat.show', ['userchat' => $user['id']]) }}">{{ $user['name'] }}</a>
                 </li>
             </ul>
             @endif
             @endforeach
         </div>
-        <br>
-        <div>
-            <div class="d-flex">
                 <div>
                 <h4>カリキュラム</h4>
                     @foreach($groups as $group)
-                    @if($group['id'] == 13)
+                    @if($group['id'] > 13)
                     @break
                     @endif
                             <ul>
                                 <li style="list-style:none;">
-                                    <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
+                                    <a style="text-decoration:none;" href="{{ route('groupchat.show', ['groupchat' => $group['id']]) }}">{{ $group['group_name'] }}</a>
                                 </li>
                             </ul>
                     @endforeach
@@ -48,14 +45,12 @@
                     
                     <ul>
                         <li style="list-style:none;">
-                            <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
+                            <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $groups = date('Y年m月', strtotime($group['group_name'])) }}</a>
                         </li>
                     </ul>
                     @endif
                     @endforeach
                 </div>
-            </div>
-        </div>
     </div>
     @endsection
 

@@ -2,6 +2,7 @@
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\ChatyController;
 use App\Http\Controllers\UserChatyController;
+use App\Http\Controllers\GroupChatyController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AdminController;
 
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('display', 'DisplayController');
     Route::resource('chat', 'ChatController');
     Route::resource('userchat', 'UserChatController');
+    Route::resource('groupchat', 'GroupChatController');
     Route::resource('admin', 'AdminController');
     Route::get('/user/search', 'DisplayController@searchUser')->name('searchUser');
 

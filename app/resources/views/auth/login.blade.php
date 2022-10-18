@@ -26,6 +26,16 @@
 </head>
 
 <body>
+  <!-- フラッシュメッセージ -->
+  @if (session('flash_message'))
+            <div class="flash_message alert alert-primary m-2 text-center">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
+        <main class="mt-4">
+            @yield('content')
+        </main>
   <h2 class='text-center'>チャット</h2>
   <div class="container">
     <div class="row justify-content-center">
