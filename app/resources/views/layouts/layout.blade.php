@@ -26,7 +26,6 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
- 
 
         @yield('stylesheet')
     </head>
@@ -41,8 +40,8 @@
                 </div>
                 <div class="d-flex align-self-center col-md-8">
                         @if(Auth::check())
-                        <span class="my-navbar-item"><a style="text-decoration:none;" href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name}}</a></span>
-                        
+                            <span class="my-navbar-item"><a style="text-decoration:none;" href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name}}</a></span>
+                         
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button class="text-secondary" style="border: none; background: none;">ログアウト</button>

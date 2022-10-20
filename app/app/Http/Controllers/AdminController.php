@@ -40,6 +40,7 @@ class adminController extends Controller
      */
     public function store(Request $request)
     {
+         // groupsへの登録
          // userの表示（ヘッダー・アカデミア生）
          $user = new User;
          $users = $user->all()->toArray();
@@ -85,7 +86,6 @@ class adminController extends Controller
             'user_id' => $user_id,
             'image' => $image->image,
         ]);
-
     }
 
     /**
@@ -128,7 +128,6 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        // var_dump($id);
-        // $user = User()->find($id);
+        //
     }
 }

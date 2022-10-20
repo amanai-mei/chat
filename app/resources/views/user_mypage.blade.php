@@ -20,7 +20,11 @@
                             <h4 class="text-center p-4">マイページ</h4>
                             @csrf
                             <!-- 画像貼り付け -->
-                                    <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
+                            @if($image)
+                                <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
+                            @else
+                                <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/noimage.jpeg') }}">
+                            @endif
                             <div class="form-group row">
                                 <label for="name" class="text-left m-1">{{ __('名前') }}</label>
                                 <div class="">
@@ -43,8 +47,13 @@
                                         @enderror -->
                                 </div>
                             </div>
-                            <div class="text-center pb-3 pt-3">
-                                <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
+                            <div class="d-flex justify-content-around m-5">
+                                <div class="">
+                                    <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
+                                </div>
+                                <div>
+                                    <a class="btn btn-outline-secondary" href="{{ route('display.index') }}">戻る</a>
+                                </div>
                             </div>
                         </form>
                     </div>

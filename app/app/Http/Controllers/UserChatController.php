@@ -46,10 +46,10 @@ class UserChatController extends Controller
         $to_id = $request->input('to_id');
 
         User_chat::create([
-        'user_id' => $user->id,
-        'name' => $user->name,
-        'message' => $message,
-        'to_id' => $to_id,
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'message' => $message,
+            'to_id' => $to_id,
         ]);
         return redirect()->route('userchat.show',['userchat' => $to_id]);
     }
@@ -69,13 +69,15 @@ class UserChatController extends Controller
          $users = $u
              ->join('user_chats', 'users.id', 'user_id')
              ->get();
-         return view('academia_chat', [
+        $names = $u->all()->toArray();
+
+         return view('user_chat', [
              'users' => $users,
              'user_id' => $user_id,
-             'id' => $id
+             'id' => $id,
+             'names' => $names
                  ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,16 +86,18 @@ class UserChatController extends Controller
      */
     public function edit($id)
     {
-        // 削除画面の表示
+           // 編集画面の表示
         //$id->messageのid
         $user_chats = new User_chat;
         // $user_id = Auth::User()->find($id);
         $user_chat = $user_chats
         ->where('id',$id)->first(['message']);
-
-        return view('chat_edit',[
+        $time = $user_chats
+        ->where('id',$id)->first(['created_at']);
+        return view('user_chat_detail',[
                 'user_chat' => $user_chat,
                 'id' => $id,
+                'time' => $time,
             ]);
     }
 
@@ -106,13 +110,14 @@ class UserChatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $users = $u
-        //      ->join('user_chats', 'users.id', 'user_id')
-        //      ->get();
-        //  return view('chat_edit', [
-        //      'users' => $users,
-        //          ]);
-        
+        // メッセージの編集
+        // id->userchats id
+        $message_id = User_chat::find($id);
+        $message_id->message = $request->message;
+        $message_id->save();
+        session()->flash('flash_message', 'メッセージを編集しました');
+        return redirect()->route('userchat.show',['userchat' => $message_id->to_id]);
+
     }
 
     /**
@@ -123,8 +128,13 @@ class UserChatController extends Controller
      */
     public function destroy($id)
     {
-        $user_chats = new User_chat;
-        $user_id = Auth::User()->find($id);
-        dd($user_id);
+        // メッセージの削除
+        // id->userchats id
+        $message_id = User_chat::find($id);
+        $message_id->delete();
+        session()->flash('flash_message', 'メッセージを削除しました');
+        return redirect()->route('userchat.show',['userchat' => $message_id->to_id]);
     }
+
+
 }

@@ -13,11 +13,11 @@
 </form>
 
 @if($users->total() !== 0)
-<table class="table-primary">
+<table class="">
     @foreach($users as $user)
     <tr>
         <td>           
-            <a href="{{ route('display.show', ['display' => $user['id']]) }}">
+            <a href="{{ route('userchat.show', ['userchat' => $user['id']]) }}">
                 {{ $user['name'] }}
             </a>    
         </td>

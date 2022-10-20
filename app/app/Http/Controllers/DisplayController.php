@@ -26,7 +26,16 @@ class DisplayController extends Controller
 
         // グループの表示(カリキュラム・入社日)
         $group = new Group;
-        $groups = $group->all()->toArray();
+        $groupall = $group->all()->toArray();
+        $groups = $group
+        ->join('user_groups', 'groups.id', 'group_id')
+        ->get();
+        //ユーザーのホームに招待されたグループチャットの表示をさせる
+
+        // u = new User;
+        //  $users = $u
+        //      ->join('user_chats', 'users.id', 'user_id')
+        //      ->get();
         
         // ログイン後のページ遷移
         if($role['role'] == 0){
@@ -34,12 +43,14 @@ class DisplayController extends Controller
             return view('user_home',[
                 'users' => $users,
                 'groups'  => $groups,
+                'groupall' => $groupall,
                 ]);
             }else{
                 // 管理者トップページ表示
                 return view('admin_home',[
                     'users' => $users,
                     'groups'  => $groups,
+                    'groupall' => $groupall,
                 ]);
             }
     }
@@ -77,14 +88,27 @@ class DisplayController extends Controller
         // マイページの表示(名前・メールアドレスの表示)
         $user_id = Auth::User()->find($id);
 
+        // $image = new Image;
+        // $i = $image->all()->toArray();
+        
+        // // ->where('user_id',$id)->first(['image']);
+
+
+        // return view('user_mypage',[
+        //     'user_id' => $user_id,
+        //     'image' => $i->image,
+        //     // 'user' => $user,
+
+        // ]);
         // 画像の表示
         $user = Auth::User()->find($id);
         $image = new Image;
+        $noimage = "noimage.ipeg";
         $i = $image
         ->where('user_id',$id)->first(['image']);
         return view('user_mypage',[
             'user_id' => $user_id,
-            'image' => $i->image,
+            'image' => $i->image ?? $noimage,
             'user' => $user,
         ]);
     }

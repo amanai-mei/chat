@@ -8,12 +8,13 @@
             <div class="card">
                 <!-- <div class="card-header text-center">{{ __('マイページ編集') }}</div> -->
                 <div class="card-body">
-                    <form action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+                    <form class="m-5" action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                     <h4 class="text-center p-4">マイページ編集</h4>
                         @method('patch')
                         @csrf
-
+                        <div class="text-center m-3">
                             <input class="" type="file" name="image">
+                        </div>
 
                         <div class="form-group row">
                             <label for="name" class="text-left m-1">{{ __('名前') }}</label>
@@ -37,11 +38,15 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-center pb-3 pt-3">
-                            <button class="btn btn-outline-primary mx-auto">保存</button>
-                            <!-- <a class="btn btn-outline-primary mx-auto" href="{{ route('display.update', ['display' => Auth::user()->id]) }}">保存</a> -->
+                        <div class="d-flex justify-content-around m-5">
+                            <div>
+                                <button class="btn btn-outline-primary mx-auto">保存</button>
+                            </div>
+                            <div>
+                                <a class="btn btn-outline-secondary" href="{{ route('display.show', ['display' => Auth::user()->id]) }}">戻る</a>
+                            </div>
                         </div>
-                    </form>
+                        </form>
                 <!-- </div> -->
             </div>
         </div>

@@ -7,7 +7,7 @@
             <div class="card">
                 <!-- <div class="card-header text-center">{{ __('') }}</div> -->
                     <div class="card-body">
-                        <form class="m-5" method="POST" action="{{ route('admin.store') }}">
+                        <form class="m-5" method="POST" action="{{ route('usergroup.store') }}">
                             <h4 class="text-center p-4">入社日の登録</h4>
                             @csrf
                                 <label for="group_name" class="text-left m-1">{{ __('グループ名') }}</label>
@@ -20,10 +20,14 @@
                                         @enderror -->
                                 </div>
                             </div>
-                            <div class="text-center pb-3 pt-3">
-                                <button type="submit" class="btn btn-outline-primary mx-auto">登録</button>
+                            <div class="d-flex justify-content-around m-5">
+                                <div>
+                                    <a class="btn btn-outline-secondary" href="{{ route('display.index') }}">戻る</a>
+                                </div>
+                                <div class="">
+                                    <button type="submit" class="btn btn-outline-primary mx-auto">登録</button>
+                                </div>
                             </div>
-                                <!-- <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">削除</a> -->
                         </form>
                     </div>
                 <!-- </div> -->

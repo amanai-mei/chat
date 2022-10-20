@@ -36,7 +36,7 @@
         <main class="mt-4">
             @yield('content')
         </main>
-  <h2 class='text-center'>チャット</h2>
+  <h2 class='text-center'>chat</h2>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col col-md-offset-3 col-md-6">

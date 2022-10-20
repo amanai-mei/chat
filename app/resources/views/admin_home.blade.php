@@ -37,29 +37,31 @@
         </div>
         <div>
                  <h4>カリキュラム</h4>
-                    @foreach($groups as $group)
-                    @if($group['id'] == 13)
+                    @foreach($groupall as $group)
+                    @if($group['id'] > 13)
                     @break
                     @endif
                             <ul>
                                 <li style="list-style:none;">
-                                    <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $group['group_name'] }}</a>
+                                    <a style="text-decoration:none;" href="{{ route('chat.show', ['chat' => $group['id']]) }}">{{ $group['group_name'] }}</a>
                                 </li>
                             </ul>
                     @endforeach
                 </div>
                 <div>
                     <h4>入社日</h4>
-                    @foreach($groups as $group)
+                    @foreach($groupall as $group)
                     @if($group['id'] > 12)
                             <ul>
                                 <li style="list-style:none;">
-                                    <a style="text-decoration:none;" href="{{ route('chat.index') }}">{{ $groups = date('Y年m月', strtotime($group['group_name'])) }}</a>
+                                    <a style="text-decoration:none;" href="{{ route('chat.show', ['chat' => $group['id']]) }}">{{ date('Y年m月', strtotime($group['group_name'])) }}</a>
                                 </li>
                             </ul>
                             @endif
                     @endforeach
-                    <a href="{{ route('admin.create') }}">登録する</a>
+                    <a href="{{ route('admin.create') }}">入社月の登録</a>
+                    <br>
+                    <a href="{{ route('usergroup.create') }}">グループに招待</a>
                 </div>
-    </div>
+            </div>
     @endsection

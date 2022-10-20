@@ -5,6 +5,7 @@ use App\Http\Controllers\UserChatyController;
 use App\Http\Controllers\GroupChatyController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\UserGroupController;
 
 
 /*
@@ -37,7 +38,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('userchat', 'UserChatController');
     Route::resource('groupchat', 'GroupChatController');
     Route::resource('admin', 'AdminController');
+    Route::resource('usergroup', 'UserGroupController');
     Route::get('/user/search', 'DisplayController@searchUser')->name('searchUser');
-
-    
 });

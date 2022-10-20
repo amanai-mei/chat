@@ -36,10 +36,14 @@
                                         @enderror -->
                                 </div>
                             </div>
-                            <div class="text-center pb-3 pt-3">
-                                <button class="btn btn-outline-primary mx-auto">削除</button>
+                            <div class="d-flex justify-content-around m-5">
+                                <div class="">
+                                    <button class="btn btn-outline-primary mx-auto">削除</button>
+                                </div>
+                                <div>
+                                    <a class="btn btn-outline-secondary" href="{{ route('display.index') }}">戻る</a>
+                                </div>                    
                             </div>
-                                <!-- <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">削除</a> -->
                         </form>
                     </div>
                 <!-- </div> -->
