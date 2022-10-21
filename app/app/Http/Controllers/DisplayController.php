@@ -103,12 +103,11 @@ class DisplayController extends Controller
         // 画像の表示
         $user = Auth::User()->find($id);
         $image = new Image;
-        $noimage = "noimage.ipeg";
         $i = $image
         ->where('user_id',$id)->first(['image']);
         return view('user_mypage',[
             'user_id' => $user_id,
-            'image' => $i->image ?? $noimage,
+            'image' => $i->image ?? "",
             'user' => $user,
         ]);
     }
@@ -123,8 +122,12 @@ class DisplayController extends Controller
     {
         // マイページ編集画面の表示
         $user_id = Auth::User()->find($id);
+        $image = new Image;
+        $i = $image
+        ->where('user_id',$id)->first(['image']);
         return view('u_mypage_update',[
             'user_id' => $user_id,
+            'i' => $i,
         ]);
     }
 

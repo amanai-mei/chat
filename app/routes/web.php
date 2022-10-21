@@ -40,4 +40,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('admin', 'AdminController');
     Route::resource('usergroup', 'UserGroupController');
     Route::get('/user/search', 'DisplayController@searchUser')->name('searchUser');
+    Route::get('/result/ajax', 'HomeController@getData');
+    Route::post('/add', 'HomeController@add')->name('add');
 });

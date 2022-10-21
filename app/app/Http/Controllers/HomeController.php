@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User_chat;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('/');
+        $comments = User_chat::get();
+        return view('home', ['comments' => $comments]);
     }
+
+    public function getData()
+{
+    $comments = User_chat::orderBy('created_at', 'desc')->get();
+    $json = ["comments" => $comments];
+    return response()->json($json);
+}
+
 }

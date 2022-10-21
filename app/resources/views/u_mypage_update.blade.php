@@ -13,7 +13,7 @@
                         @method('patch')
                         @csrf
                         <div class="text-center m-3">
-                            <input class="" type="file" name="image">
+                            <input class="" type="file" name="image" value="{{ $i->image }}">
                         </div>
 
                         <div class="form-group row">

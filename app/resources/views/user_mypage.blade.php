@@ -23,7 +23,7 @@
                             @if($image)
                                 <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
                             @else
-                                <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/noimage.jpeg') }}">
+                                <img class="rounded-circle mx-auto d-block" width="260" height="200" src="/images/noimage.jpeg">
                             @endif
                             <div class="form-group row">
                                 <label for="name" class="text-left m-1">{{ __('名前') }}</label>

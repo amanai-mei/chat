@@ -136,5 +136,6 @@ class UserChatController extends Controller
         return redirect()->route('userchat.show',['userchat' => $message_id->to_id]);
     }
 
+    
 
 }

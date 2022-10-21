@@ -76,7 +76,6 @@
 position: fixed; /* 要素の位置を固定する */
 bottom: 0; /* 基準の位置を画面の一番下に指定する */
 width: 100%; /* 幅を指定する */
-
 }
 </style>
 @endsection
