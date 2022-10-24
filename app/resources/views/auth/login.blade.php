@@ -36,7 +36,7 @@
         <main class="mt-4">
             @yield('content')
         </main>
-  <h2 class='text-center'>chat</h2>
+  <h2 class='text-center'></h2>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col col-md-offset-3 col-md-6">
@@ -52,7 +52,7 @@
               </div>
             
               <form action="{{ route('login') }}" method="POST">
-                <h4 class="text-center">ログイン</h4>
+                <h4 class="text-center p-4 border-top border-bottom m-5">ログイン</h4>
                   @csrf
                   <div class="form-group px-5 m-3">
                     <!-- <label for="email">メールアドレス</label> -->
@@ -65,7 +65,7 @@
                   </div>
 
                     @if (Route::has('password.request'))
-                      <a class="btn btn-link d-block" style="text-decoration:none;" href="{{ route('password.request') }}">
+                      <a class="btn btn-link d-block" style="text-decoration:none;" href="{{ route('password_reset.email.form') }}">
                         {{ __('パスワードを忘れた方はこちら') }}
                       </a>
                     @endif
@@ -89,4 +89,9 @@
     </div>
   </div>
 </body>
+<style>
+  body{
+        font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+    }
+</style>
 </html>

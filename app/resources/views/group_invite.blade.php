@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <form method="POST" action="{{ route('usergroup.store') }}">
-                    <h4 class="text-center p-4">アカデミア生招待</h4>
+            <div class="card-body">
+                <form class="m-5" method="POST" action="{{ route('usergroup.store') }}">
+                    <h4 class="text-center p-4 border-top border-bottom mb-5 mt-5">グループの招待</h4>
                     @csrf
                     <div class="form-group row m-5">
                         <label class="text-left m-1" for="user_id">アカデミア生</label>
@@ -38,11 +39,13 @@
                             <a class="btn btn-outline-secondary" href="{{ route('display.index') }}">戻る</a>
                         </div>
                         <div class="">
-                            <button type='submit' class='btn btn-outline-primary mx-auto'>登録</button>
+                            <button type='submit' class='btn btn-outline-primary mx-auto'>招待</button>
                         </div> 
                     </div>
                 </form>
             </div>
+            </div>
+
         </div>
     </div>
 </div>

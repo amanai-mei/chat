@@ -56,22 +56,33 @@ class ChatController extends Controller
      */
     public function show($id)// 作成データの個別表示
     {
-        // グループチャットの表示
+        // グループチャットの表示（名前・メッセージ・時間）
         // $id->リンクタグをクリックしたグループのid
         $user_id = Auth::User($id);//ログインしたユーザー
         $group_chats = new Group_chat;
-           $u = new User;
-           $users = $u
-           ->join('group_chats', 'users.id', 'user_id')
-           ->where('group_chats.group_id','=',$id)->get();
-           $groups = new Group;
-           $group = $groups->where('id',$id)->get();
+        $u = new User;
+        $users = $u
+        ->join('group_chats', 'users.id', 'user_id')
+        ->where('group_chats.group_id','=',$id)->get();
 
+        // グループチャット名の表示
+        $groups = new Group;
+        $group = $groups->where('id',$id)->get();
+        
+        // 画像の表示 ->ユーザー表示をさせる(whereかselectで表示)
+        $image = new Image;
+        $user_image = $image
+        // ::where('user_id', Auth::id());
+        ->join('group_chats', 'images.user_id', 'group_chats.id')->get();
+        // $i = $image
+        // ->where('user_id',$id)->first(['image']);
 
         return view('admin_group_chat', [
             'user_id' => $user_id,
             'users' => $users,
             'group' => $group,
+            'user_image' => $user_image,
+            // 'image' => $i->image ?? "",
         ]);
     }
 

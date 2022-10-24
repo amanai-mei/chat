@@ -23,19 +23,25 @@ class DisplayController extends Controller
         $user = new User;
         $users = $user->all()->toArray();
         $role = Auth::user()->toArray();
+        // $users = $user
+        // ->join('images', 'users.id', 'user_id')
+        // ->get();
 
         // グループの表示(カリキュラム・入社日)
         $group = new Group;
         $groupall = $group->all()->toArray();
         $groups = $group
         ->join('user_groups', 'groups.id', 'group_id')
+        ->orderBy('groups.id', 'asc')
         ->get();
-        //ユーザーのホームに招待されたグループチャットの表示をさせる
 
-        // u = new User;
-        //  $users = $u
-        //      ->join('user_chats', 'users.id', 'user_id')
-        //      ->get();
+   
+       
+        // 画像の表示
+        // $user = Auth::User()->find($id);
+        // $image = new Image;
+        // $i = $image
+        // ->where('user_id',$id)->first(['image']);
         
         // ログイン後のページ遷移
         if($role['role'] == 0){
@@ -88,18 +94,6 @@ class DisplayController extends Controller
         // マイページの表示(名前・メールアドレスの表示)
         $user_id = Auth::User()->find($id);
 
-        // $image = new Image;
-        // $i = $image->all()->toArray();
-        
-        // // ->where('user_id',$id)->first(['image']);
-
-
-        // return view('user_mypage',[
-        //     'user_id' => $user_id,
-        //     'image' => $i->image,
-        //     // 'user' => $user,
-
-        // ]);
         // 画像の表示
         $user = Auth::User()->find($id);
         $image = new Image;
@@ -197,25 +191,26 @@ class DisplayController extends Controller
 
     public function searchUser(Request $request) // 新規作成画面のデータ保存
     {
-        // 検索画面
+        $image = new User;
+        $images = $image
+        ->select('images.image','users.name')
+        ->join('images', 'users.id', 'user_id')
+        // ->where('users.id','images.user_id')
+        ->get();
+        
 
+        // 検索画面
         // ユーザー一覧をページネートで取得
         $users = User::paginate(20);
-
         // 検索フォームで入力された値を取得する
         $search = $request->input('search');
-
         // クエリビルダ
         $query = User::query(); 
-        
         if ($search) {
-
             // 全角スペースを半角に変換
             $spaceConversion = mb_convert_kana($search, 's');
-
             // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-
             // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
             foreach($wordArraySearched as $value) {
                 $query->where('name', 'like', '%'.$value.'%');
@@ -223,10 +218,11 @@ class DisplayController extends Controller
             // 上記で取得した$queryをページネートにし、変数$usersに代入
             $users = $query->paginate(20);
         }
-        return view('user_search')
-        ->with([
+        return view('user_search',[
             'users' => $users,
             'search' => $search,
+            // 'images' => $images,
+            'images' => $images,
         ]);
     }
 }

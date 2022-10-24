@@ -17,7 +17,9 @@ class UserChatController extends Controller
      */
     public function index()
     {
-        //
+        $comments = User_chat::get();
+        return view('user_chat', ['comments' => $comments]);
+
     }
 
     /**
@@ -51,7 +53,21 @@ class UserChatController extends Controller
             'message' => $message,
             'to_id' => $to_id,
         ]);
-        return redirect()->route('userchat.show',['userchat' => $to_id]);
+        // $message = User::find($user->id)->user_chat()->orderBy('created_at','desc')->get();
+        $message = User::join('user_chats','users.id','=','user_chats.user_id')
+                        ->select('users.name','user_chats.message','user_chats.created_at','user_chats.user_id','user_chats.id')
+                        ->where(function($query) use($to_id){
+                            $query->where('user_chats.user_id',Auth::id())
+                                ->where('user_chats.to_id',$to_id);
+                        })
+                        ->orWhere(function($query) use($to_id){
+                            $query->where('user_chats.user_id',$to_id)
+                                ->where('user_chats.to_id',Auth::id());
+                        })
+                        // ->orderBy('user_chats.created_at','desc')
+                        ->get();
+        $json = ["comments"=>$message];
+        return response()->json($json);
     }
 
     /**
@@ -60,16 +76,26 @@ class UserChatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
          // チャットのメッセージ表示
          $user_id = Auth::User($id);//ログインしたユーザー
          // $id->リンクタグをクリックしたユーザー
          $u = new User;
-         $users = $u
-             ->join('user_chats', 'users.id', 'user_id')
-             ->get();
+         $users = $u->join('user_chats', 'users.id', 'user_id')
+                    ->select('users.name','user_chats.message','user_chats.created_at','user_chats.user_id','user_chats.id')
+                    ->where(function($query) use($id){
+                        $query->where('user_chats.user_id',Auth::id())
+                            ->where('user_chats.to_id',$id);
+                    })
+                    ->orWhere(function($query) use($id){
+                        $query->where('user_chats.user_id',$id)
+                            ->where('user_chats.to_id',Auth::id());
+                    })
+                    // ->orderBy('user_chats.created_at','desc')
+                    ->get();
         $names = $u->all()->toArray();
+
 
          return view('user_chat', [
              'users' => $users,
@@ -135,6 +161,13 @@ class UserChatController extends Controller
         session()->flash('flash_message', 'メッセージを削除しました');
         return redirect()->route('userchat.show',['userchat' => $message_id->to_id]);
     }
+
+    public function getData()
+{
+    $comments = User_chat::orderBy('created_at', 'desc')->get();
+    $json = ["comments" => $comments];
+    return response()->json($json);
+}
 
     
 

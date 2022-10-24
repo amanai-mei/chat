@@ -3,32 +3,34 @@
 @section('content')
 <br>
 <br>
-<h3 class="text-center">検索結果</h3>
+<h3 class="text-center mb-5">検索結果</h3>
 
 <div class="search text-center">
 <form method="GET" action="{{ route('searchUser') }}">
     @csrf
-    <input type="search" placeholder="入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
-        <button type="submit">検索</button>
-</form>
+    <input  style="width:500px; height:38px;" type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
+    <button type="submit" class="btn btn-outline-dark mb-1">検索</button>
 
+
+</form>
 @if($users->total() !== 0)
-<table class="">
-    @foreach($users as $user)
-    <tr>
-        <td>           
-            <a href="{{ route('userchat.show', ['userchat' => $user['id']]) }}">
-                {{ $user['name'] }}
-            </a>    
-        </td>
-        <td>
-            {{ $user['image'] }}
-        </td>
-    </tr>
+<div class="d-flex flex-row justify-content-center mt-5">
+    @foreach($images as $image)
+    <div class="card m-3 p-3" style="">
+        <div class="card-body">
+        <img class="rounded-circle mx-auto d-block p-4" width="200" height="200" src="{{ asset('storage/image/'.$image['image']) }}">
+        <h5>{{ $image['name'] }}</h5>
+    </div>
+
+    <a class="btn btn-outline-info" href="{{ route('userchat.show', ['userchat' => $user['id']]) }}">
+            チャットする
+        </a>    
+    </div>
     @endforeach
-</table>
+
+</div>
                    
 @else
-<p>検索結果なし</p>
+<p class="mt-5">検索結果はありません。</p>
 @endif
     @endsection

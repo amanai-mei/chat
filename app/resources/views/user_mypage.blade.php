@@ -17,13 +17,13 @@
                 <!-- <div class="card-header text-center">{{ __('マイページ') }}</div> -->
                     <div class="card-body">
                         <form class="m-5" method="POST" action="{{ route('register') }}" enctype='multipart/form-data'>
-                            <h4 class="text-center p-4">マイページ</h4>
+                            <h4 class="text-center p-4 border-top border-bottom">マイページ</h4>
                             @csrf
                             <!-- 画像貼り付け -->
                             @if($image)
-                                <img class="rounded-circle mx-auto d-block" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
+                                <img class="rounded-circle mx-auto d-block p-4" width="200" height="200" src="{{ asset('storage/image/'.$image) }}">
                             @else
-                                <img class="rounded-circle mx-auto d-block" width="260" height="200" src="/images/noimage.jpeg">
+                                <img class="mx-auto d-block p-4" width="200" height="160" src="/images/noimage.jpeg">
                             @endif
                             <div class="form-group row">
                                 <label for="name" class="text-left m-1">{{ __('名前') }}</label>
@@ -48,11 +48,11 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-around m-5">
-                                <div class="">
-                                    <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
-                                </div>
                                 <div>
                                     <a class="btn btn-outline-secondary" href="{{ route('display.index') }}">戻る</a>
+                                </div>
+                                <div class="">
+                                    <a class="btn btn-outline-primary mx-auto" href="{{ route('display.edit', ['display' => Auth::user()->id]) }}">編集</a>
                                 </div>
                             </div>
                         </form>

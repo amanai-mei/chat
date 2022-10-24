@@ -26,28 +26,30 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        <!-- Scripts -->
+        <!-- Scripts/ajax-->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         @yield('stylesheet')
     </head>
     
     <body>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div id="app" class="d-flex">
-                <div class="">
-                    <a class="navbar-brand" style="font-size:40px;" href="{{ url('/display') }}">
+        <nav class="bg-white shadow-sm pt-3">
+            <div id="app" class="">
+                <div class=" text-center">
+                    <a class="navbar-brand" style="font-size:40px; color:black;" href="{{ url('/display') }}">
                         chat
                     </a>
                 </div>
-                <div class="d-flex align-self-center col-md-8">
+                <div class="d-flex justify-content-end">
                         @if(Auth::check())
-                            <span class="my-navbar-item"><a style="text-decoration:none;" href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name}}</a></span>
-                         
+                            <span class="my-navbar-item pr-2"><a style="text-decoration:none;" href="{{ route('display.show', ['display' => Auth::user()->id]) }}">{{ Auth::user()->name}}</a></span>
+                            <p>|</p>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button class="text-secondary" style="border: none; background: none;">ログアウト</button>
+                            <button class="text-secondary pr-3" style="border: none; background: none;">ログアウト</button>
                         </form>
                         <script>
                         document.getElementById('logout').addEventListener('click', function(event) {
@@ -56,8 +58,9 @@
                         });
                         </script>
                     @else
-                    <a class="" href="{{ route('login') }}">ログイン</a>
-                    <a class="" href="{{ route('register') }}">会員登録</a>
+                    <a class="pr-2" style="text-decoration:none;" href="{{ route('login') }}">ログイン</a>
+                    <p>|</p>
+                    <a class="text-secondary pr-3 pl-2" style="border: none; background: none; text-decoration:none;" href="{{ route('register') }}">会員登録</a>
                     @endif   
                 </div>            
             </div>
@@ -66,3 +69,11 @@
         @yield('js')
     </body>
 </html>
+<style>
+    html{
+        margin: 0 80px;
+    }
+    body{
+        font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+    }
+</style>

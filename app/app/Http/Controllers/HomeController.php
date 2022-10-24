@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User_chat;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
     /**
@@ -27,6 +30,19 @@ class HomeController extends Controller
         $comments = User_chat::get();
         return view('home', ['comments' => $comments]);
     }
+
+    public function add(Request $request)
+{
+    $user = Auth::user();
+    $comment = $request->input('message');
+    $to_id = 1;
+    User_chat::create([
+        'user_id' => $user->id,
+        'message' => $comment,
+        'to_id' => $to_id,
+    ]);
+    return redirect('/home');
+}
 
     public function getData()
 {

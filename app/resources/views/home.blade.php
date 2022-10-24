@@ -1,3 +1,4 @@
+@extends('layouts.app')
 
 @section('content')
 <div class="chat-container row justify-content-center">
@@ -5,9 +6,7 @@
         <div class="card">
             <div class="card-header">Comment</div>
             <div class="card-body chat-card">
-            @foreach ($comments as $item)
-    @include('components.comment', ['item' => $item])
-    @endforeach
+            <div id="comment-data"></div>
             </div>
         </div>
     </div>
@@ -17,11 +16,15 @@
     @csrf
     <div class="comment-container row justify-content-center">
         <div class="input-group comment-area">
-            <textarea class="form-control" id="comment" name="comment" placeholder="input massage"
+            <textarea class="form-control" id="comment" name="message" placeholder="input massage"
                 aria-label="With textarea"></textarea>
-            <button type="submit" class="btn btn-outline-primary comment-btn">Submit</button>
+            <button type="submit" class="btn btn-outline-primary comment-btn" id="click_btn">Submit</button>
         </div>
     </div>
 </form>
+@section('js')
+<script src="{{ asset('js/message.js') }}"></script>
+@endsection
 
 @endsection
+

@@ -75,16 +75,12 @@ class adminController extends Controller
         $user_id = Auth::User()->find($id);
 
         // 画像の表示
-        $user = Auth::User()->find($id)->posts;
         $image = new Image;
-        $images = DB::table('images')->get();
-        foreach($images as $image){
-            if($image->user_id == (int)$user){
-            }
-        }
+        $i = $image
+        ->where('user_id',$id)->first(['image']);
         return view('delete',[
             'user_id' => $user_id,
-            'image' => $image->image,
+            'image' => $i->image ?? "",
         ]);
     }
 
@@ -115,9 +111,6 @@ class adminController extends Controller
 
         session()->flash('flash_message', 'ユーザーを削除しました');
         return redirect('display');
-
-
-       
     }
 
     /**
@@ -129,5 +122,45 @@ class adminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function searchAdmin(Request $request) // 新規作成画面のデータ保存
+    {
+        $image = new User;
+        $images = $image
+        ->join('images', 'users.id', 'user_id')
+        ->get();
+
+        // 検索画面
+        // ユーザー一覧をページネートで取得
+        $users = User::paginate(20);
+
+        // 検索フォームで入力された値を取得する
+        $search = $request->input('search');
+
+        // クエリビルダ
+        $query = User::query(); 
+        
+        if ($search) {
+
+            // 全角スペースを半角に変換
+            $spaceConversion = mb_convert_kana($search, 's');
+
+            // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+            // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
+            foreach($wordArraySearched as $value) {
+                $query->where('name', 'like', '%'.$value.'%');
+            }
+            // 上記で取得した$queryをページネートにし、変数$usersに代入
+            $users = $query->paginate(20);
+        }
+        return view('admin_search')
+        ->with([
+            'users' => $users,
+            'search' => $search,
+            'images' => $images,
+        ]);
     }
 }
