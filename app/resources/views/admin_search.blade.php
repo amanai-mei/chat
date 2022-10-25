@@ -7,7 +7,7 @@
 <div class="search text-center">
 <form method="GET" action="{{ route('searchAdmin') }}">
     @csrf
-    <input  style="width:500px; height:38px;" type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
+    <input  style="width:500px; height:38px;" type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif" required>
     <button type="submit" class="btn btn-outline-dark mb-1">検索</button>
 
 
@@ -15,19 +15,26 @@
 @if($users->total() !== 0)
 <div class="d-flex flex-row justify-content-center mt-5">
     @foreach($users as $user)
-    @if($user['role'] == 0 && $user['id'] != Auth::user()->id && $user['del_flg'] == 0)
+    @if($user['role'] == 0 &&  Auth::id() !== $user['id'] && $user['del_flg'] == 0)
     <div class="card m-3 p-3" style="">
         <div class="card-body">
-        <h5>{{ $user['name'] }}</h5>
-    </div>
-
-    <a class="btn btn-outline-info" href="{{ route('admin.show', ['admin' => $user['id']]) }}">
-            ユーザー詳細
-        </a>    
+        @if($user['image'])
+            <img class="rounded-circle mx-auto d-block p-4 mb-4" width="200" height="200" src="{{ asset('storage/image/'.$user['image']->image) }}">
+            <h5 class="mb-3">{{ $user['name'] }}</h5>
+            <a class="btn btn-outline-info mb-3" href="{{ route('admin.show', ['admin' => $user['id']]) }}">
+                    ユーザー詳細
+                </a>    
+        @else
+            <img class="mx-auto d-block p-4 mb-4" width="200" height="160" src="/images/noimage.jpeg">
+            <h5 class="mb-3">{{ $user['name'] }}</h5>
+            <a class="btn btn-outline-info mb-3" href="{{ route('admin.show', ['admin' => $user['id']]) }}">
+                    ユーザー詳細
+                </a>    
+        @endif
+        </div>
     </div>
     @endif
     @endforeach
-
 </div>
                    
 @else

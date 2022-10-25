@@ -5,10 +5,10 @@
 <br>
 <h3 class="text-center"></h3>
 <br>
-<div class="search text-center">
+<div class="search text-center mb-5">
     <form class="mb-5" method="GET" action="{{ route('searchUser') }}">
         @csrf
-        <input style="width:500px; height:38px;"type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif">
+        <input style="width:500px; height:38px;"type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif" required>
         <button type="submit" class="btn btn-outline-secondary mb-1">検索</button>
     </form>
     <div class="d-flex justify-content-center">

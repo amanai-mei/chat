@@ -62,7 +62,7 @@
             <div class="input-group">
                 <textarea class="form-control" id="message" name="message" placeholder="メッセージを入力"
                     aria-label="With textarea"></textarea>
-                    <button type="submit" id="click_btn" class="btn btn-secondary" style="margin-right:130px;">送信</button>
+                    <button type="submit" id="click_btn" class="btn btn-secondary" style="margin-right:130px;" onclick="clearText()">送信</button>
                 </div>
             </div>
     </form>
@@ -74,9 +74,32 @@ position: fixed; /* 要素の位置を固定する */
 bottom: 0; /* 基準の位置を画面の一番下に指定する */
 width: 100%; /* 幅を指定する */
 }
+#name,#created_at{
+    font-size:2px;
+}
+.media{
+    text-align:right;
+}
+#comment{
+    background-color:#99CCFF;
+    border-radius:30px;
+    padding:8px;
+}
+#name1,#created_at1{
+    font-size:2px;
+}
+#comment1{
+    background-color:#f5f5f5;
+    border-radius:30px;
+    padding:8px;
+
+}
 </style>
+
 @section('js')
 <script src="{{ asset('js/message.js') }}"></script>
 @endsection
 
 @endsection
+
+

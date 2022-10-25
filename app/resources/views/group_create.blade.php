@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form class="m-5" method="POST" action="{{ route('usergroup.store') }}">
+                    <form class="m-5" method="POST" action="{{ route('admin.store') }}">
                         <h4 class="text-center p-4 border-top border-bottom mb-5">入社日の登録</h4>
                         @csrf
                         <label for="group_name" class="text-left m-1">{{ __('グループ名') }}</label>

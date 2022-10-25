@@ -191,17 +191,13 @@ class DisplayController extends Controller
 
     public function searchUser(Request $request) // 新規作成画面のデータ保存
     {
-        $image = new User;
-        $images = $image
-        ->select('images.image','users.name')
-        ->join('images', 'users.id', 'user_id')
-        // ->where('users.id','images.user_id')
-        ->get();
-        
+        $users = User::join('images', 'users.id', 'user_id')
+                ->select('images.image','users.name','users.id','users.role','users.del_flg')
+                ->paginate(20);
 
         // 検索画面
         // ユーザー一覧をページネートで取得
-        $users = User::paginate(20);
+        // $users = $users->paginate(20);
         // 検索フォームで入力された値を取得する
         $search = $request->input('search');
         // クエリビルダ
@@ -222,7 +218,7 @@ class DisplayController extends Controller
             'users' => $users,
             'search' => $search,
             // 'images' => $images,
-            'images' => $images,
+            // 'images' => $images,
         ]);
     }
 }

@@ -5,12 +5,12 @@
 // 送信ボタンを押した時
 $("#click_btn").on("click", function(event){
     event.preventDefault();
-    // get_data();
     send_data();
-    
+    var textForm = document.getElementById("message");
+    textForm.value = '';      
 });
 
-// suer_chatsのデータ
+// user_chatsのデータ
 
 //　表示
 function get_data() {
@@ -48,19 +48,34 @@ function send_data() {
             .find(".comment-visible")
             .remove();
             for (var i = 0; i < data.comments.length; i++) {
+                if(data.comments[i].user_id == 25){
                 var html = `
                             <div class="media comment-visible">
-                                <div class="media-body comment-body mb-4">
-                                <span class="comment-body-user" id="name style="font-size:2px;">${data.comments[i].name}</span>
+                                <div class="media-body comment-body">
+                                <span class="user1" id="name">${data.comments[i].name}</span>
                                     <div class="">
-                                    <span class="comment-body-content" id="comment" style="background-color:#f5f5f5;">${data.comments[i].message}</span>
+                                    <span class="comment1" id="comment">${data.comments[i].message}</span>
                                         </div>
-                                        <span class="comment-body-time" style="font-size:2px;" id="created_at">${data.comments[i].created_at}</span>
+                                        <span class="time" id="created_at">${data.comments[i].created_at}</span>
+                                </div>
+                            </div>
+                            `;
+                }else{
+                    var html = `
+                            <div class="media1 comment-visible">
+                                <div class="media-body comment-body">
+                                <span class="user" id="name1">${data.comments[i].name}</span>
+                                    <div class="">
+                                    <span class="comment" id="comment1">${data.comments[i].message}</span>
+                                        </div>
+                                        <span class="time" id="created_at1">${data.comments[i].created_at}</span>
                                 </div>
                             </div>
                         `;
+                }
                 $("#comment-data").append(html);
             }
+
         },
         error: (e) => {
             alert("ajax Error");

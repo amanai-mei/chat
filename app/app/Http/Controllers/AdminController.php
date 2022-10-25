@@ -126,14 +126,13 @@ class adminController extends Controller
 
     public function searchAdmin(Request $request) // 新規作成画面のデータ保存
     {
-        $image = new User;
-        $images = $image
-        ->join('images', 'users.id', 'user_id')
-        ->get();
+             $users = User::join('images', 'users.id', 'user_id')
+                ->select('images.image','users.name','users.id','users.role','users.del_flg')
+                ->paginate(20);
 
         // 検索画面
         // ユーザー一覧をページネートで取得
-        $users = User::paginate(20);
+        // $users = User::paginate(20);
 
         // 検索フォームで入力された値を取得する
         $search = $request->input('search');
@@ -160,7 +159,7 @@ class adminController extends Controller
         ->with([
             'users' => $users,
             'search' => $search,
-            'images' => $images,
+            // 'images' => $images,
         ]);
     }
 }
