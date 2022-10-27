@@ -5,7 +5,7 @@
 <div class="container p-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card Regular shadow">
                 <div class="card-body">
                     <form class="m-5" action="{{ route('display.update', ['display' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                         <h4 class="text-center p-4 border-top border-bottom mb-5">マイページ編集</h4>

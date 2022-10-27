@@ -16,7 +16,7 @@
 <div class="d-flex flex-row justify-content-center mt-5">
     @foreach($users as $user)
     @if($user['role'] == 0 &&  Auth::id() !== $user['id'] && $user['del_flg'] == 0)
-    <div class="card m-3 p-3" style="">
+    <div class="card m-3 p-3 Regular shadow" style="">
         <div class="card-body">
         @if($user['image'])
             <img class="rounded-circle mx-auto d-block p-4 mb-4" width="200" height="200" src="{{ asset('storage/image/'.$user['image']->image) }}">
@@ -25,9 +25,9 @@
                     ユーザー詳細
                 </a>    
         @else
-            <img class="mx-auto d-block p-4 mb-4" width="200" height="160" src="/images/noimage.jpeg">
-            <h5 class="mb-3">{{ $user['name'] }}</h5>
-            <a class="btn btn-outline-info mb-3" href="{{ route('admin.show', ['admin' => $user['id']]) }}">
+            <img class="mx-auto d-block p-4 mt-4" width="200" height="175" src="/images/noimage.jpeg">
+            <h5 class="mb-3 mt-4">{{ $user['name'] }}</h5>
+            <a class="btn btn-outline-info mb-4" href="{{ route('admin.show', ['admin' => $user['id']]) }}">
                     ユーザー詳細
                 </a>    
         @endif

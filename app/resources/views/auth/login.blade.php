@@ -40,7 +40,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col col-md-offset-3 col-md-6">
-        <nav class="card mt-5">
+        <nav class="card mt-5 Regular shadow">
           <!-- <div class="card-header text-center">ログイン</div> -->
             <div class="card-body">
               @if($errors->any())
@@ -92,6 +92,7 @@
 <style>
   body{
         font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+        background-color: #f0f8ff;
     }
 </style>
 </html>

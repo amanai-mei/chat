@@ -1,15 +1,5 @@
 @extends('layouts.layout')
 @section('content')
-<!-- フラッシュメッセージ -->
-@if (session('flash_message'))
-            <div class="flash_message alert alert-primary m-2 text-center">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-
-        <main class="mt-4">
-            @yield('content')
-        </main>
 
 <div class="chat-container row justify-content-center">
     <div class="chat-area">     
@@ -24,8 +14,19 @@
             </h4>       
     </div>
 </div>
+<!-- フラッシュメッセージ -->
+@if (session('flash_message'))
+            <div class="flash_message alert alert-primary m-2 text-center">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+
+        <main class="mt-4">
+            @yield('content')
+        </main>
+
 <!-- メッセージ表示 -->
-<div class="card-body chat-card">
+<div class="card-body chat-card mr-1 ml-1">
     @foreach($users as $user)
     <div class="">
         <div class="mb-4">
@@ -33,7 +34,7 @@
                     <p style="font-weight:bold; font-size:3px;" class="mb-1">{{ $user->name }}</p>
                 </div>
                 <div class="">
-                    <a class="comment-body-content p-2" style="text-decoration:none; color:black; background-color:#99CCFF; border-radius:30px" 
+                    <a class="comment-body-content p-2" style="text-decoration:none; color:black; background-color:#99CCFF; border-radius:30px; border:1px solid #dcdcdc;" 
                     href="{{ route('chat.edit', ['chat' => $user->id]) }}">
                     {!! nl2br(e($user->message)) !!}
                     </a>

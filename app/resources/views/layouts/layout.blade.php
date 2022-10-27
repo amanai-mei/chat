@@ -35,11 +35,11 @@
         @yield('stylesheet')
     </head>
     
-    <body>
-        <nav class="bg-white shadow-sm pt-3">
-            <div id="app" class="">
+    <body class="body">
+        <nav class="mt-3 pt-3 border-top border-bottom">
+            <div id="app">
                 <div class=" text-center">
-                    <a class="navbar-brand" style="font-size:40px; color:black;" href="{{ url('/display') }}">
+                    <a class="title navbar-brand" style="font-size:40px; color:black;" href="{{ url('/display') }}">
                         chat
                     </a>
                 </div>
@@ -70,10 +70,13 @@
     </body>
 </html>
 <style>
-    html{
-        margin: 0 80px;
+    .html body{
     }
     body{
         font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+        background-color: #f0f8ff;
+    }
+    .title{
+        margin-bottom:-35px;
     }
 </style>

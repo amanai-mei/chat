@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-<div class="card mt-5" style="margin:0 300px;">
+<div class="card mt-5 Regular shadow" style="margin:0 300px;">
     <div class="card-body">
         <h4 class="text-center p-4 border-top border-bottom m-5">新しいパスワードの設定</h4>
         <form method="POST" action="{{ route('password_reset.update') }}">
@@ -28,4 +28,10 @@
         </form>
     </div>
 </div>
+<style>
+    body{
+            font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+            background-color: #f0f8ff;
+        }
+</style>
 @endsection

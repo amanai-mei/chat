@@ -28,7 +28,7 @@
         <div class="container mt-5 p-5">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card Regular shadow">
                         <div class="card-body">
                             <form class="m-5" method="POST" action="{{ url('register') }}">
                                 <h4 class="text-center p-4 border-top border-bottom mb-5">アカデミア生新規登録</h4>
@@ -96,6 +96,8 @@
     <style>
   body{
         font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+        background-color: #f0f8ff;
+
     }
 </style>
 </html>

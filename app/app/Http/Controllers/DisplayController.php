@@ -195,6 +195,7 @@ class DisplayController extends Controller
                 ->select('images.image','users.name','users.id','users.role','users.del_flg')
                 ->paginate(20);
 
+
         // 検索画面
         // ユーザー一覧をページネートで取得
         // $users = $users->paginate(20);

@@ -3,7 +3,7 @@
 <div class="container p-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card Regular shadow">
                 <div class="card-body">
                     <form class="m-5" method="POST" action="{{ route('admin.update',['admin' => $user_id['id']]) }}" enctype='multipart/form-data'>
                         <h4 class="text-center p-4 border-top border-bottom">削除</h4>

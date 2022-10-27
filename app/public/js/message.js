@@ -32,6 +32,7 @@ function send_data() {
     let element = document.getElementById('to_id');   
     let to_id = element.dataset.toid;
     let message = document.chat.message.value;
+    
     $.ajax({
         url: "/userchat",
         method: "POST",
@@ -48,17 +49,15 @@ function send_data() {
             .find(".comment-visible")
             .remove();
             for (var i = 0; i < data.comments.length; i++) {
-                if(data.comments[i].user_id == 25){
+                if(data.comments[i].user_id == id){
                 var html = `
                             <div class="media comment-visible">
                                 <div class="media-body comment-body">
-                                <span class="user1" id="name">${data.comments[i].name}</span>
                                     <div class="">
-                                    <span class="comment1" id="comment">${data.comments[i].message}</span>
+                                    <span class="comment" id="comment">${data.comments[i].message}</span>
                                         </div>
                                         <span class="time" id="created_at">${data.comments[i].created_at}</span>
                                 </div>
-                            </div>
                             `;
                 }else{
                     var html = `

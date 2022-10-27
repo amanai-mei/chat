@@ -4,7 +4,7 @@
 <div class="container p-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card Regular shadow">
             <div class="card-body">
                 <form class="m-5" method="POST" action="{{ route('usergroup.store') }}">
                     <h4 class="text-center p-4 border-top border-bottom mb-5 mt-5">グループの招待</h4>

@@ -19,11 +19,11 @@
     <form class="mb-5" method="GET" action="{{ route('searchAdmin') }}">
     @csrf
     <input style="width:500px; height:38px;" type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif" required>
-        <button type="submit" class="btn btn-outline-dark mb-1">検索</button>
+        <button type="submit" class="btn btn-outline-dark mb-1" style="background-color:white;">検索</button>
     </form>
     <div>
         <div class="d-flex justify-content-center mb-5">
-                <div class="card mr-5 p-5" style="width: 400px;">
+                <div class="card mr-5 p-5 Regular shadow" style="width: 400px;">
                     <div class="text-center border-top border-bottom">
                         <h4 class="pt-4">アカデミア生</h4>
                         <p class="text-center" style="font-size:15px;">ー 削除 ー</p>
@@ -40,7 +40,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="card p-5" style="width: 400px;">
+            <div class="card p-5 Regular shadow" style="width: 400px;">
             <div class="text-center border-top border-bottom">
                         <h4 class="pt-4">カリキュラム</h4>
                         <p class="text-center" style="font-size:15px;">ー トーク閲覧•削除 ー</p>
@@ -59,7 +59,7 @@
                 @endforeach
                 </div>
             </div>
-            <div class="card ml-5 p-5" style="width: 400px;">
+            <div class="card ml-5 p-5 Regular shadow" style="width: 400px;">
             <div class="text-center border-top border-bottom">
                         <h4 class="pt-4">入社日</h4>
                         <p class="text-center" style="font-size:15px;">ー トーク閲覧•削除 / 招待 ー</p>

@@ -9,11 +9,11 @@
     <form class="mb-5" method="GET" action="{{ route('searchUser') }}">
         @csrf
         <input style="width:500px; height:38px;"type="search" placeholder="アカデミア生の検索" name="search" value="@if (isset($search)) {{ $search }} @endif" required>
-        <button type="submit" class="btn btn-outline-secondary mb-1">検索</button>
+        <button type="submit" class="btn btn-outline-secondary mb-1" style="background-color:white;">検索</button>
     </form>
     <div class="d-flex justify-content-center">
         <div>
-            <div class="card mr-5" style="width: 400px; height:400px;">
+            <div class="card mr-5 Regular shadow" style="width: 400px; height:400px;">
                 <div class="card-body p-5">
                     <h4 class="text-center p-4 border-top border-bottom">アカデミア生</h4>
                     <div class="mt-5">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="card ml-5" style="width: 400px; height:400px;">
+        <div class="card ml-5 Regular shadow" style="width: 400px; height:400px;">
             <div class="card-body p-5">
                 <h4 class="text-center p-4 border-top border-bottom">グループ</h4>
                     <div class="mt-5">
